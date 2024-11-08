@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "app_expo",
-    "slug": "app_expo",
+    "slug": "appexpo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -19,7 +19,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.xdougd.appexpo"
     },
     "web": {
       "bundler": "metro",
@@ -32,6 +33,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "84429949-8c74-476a-8ac4-f23d62cdb077"
+      }
+    },
+    "owner": "xdougd"
   }
 }
