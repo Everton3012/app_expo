@@ -1,17 +1,41 @@
 import { useState } from "react";
 import todasAsPerguntas from "@/data/constants/perguntas";
-import perguntas from "@/data/constants/perguntas";
 
 const useQuestionario = () => {
   const [indicePergunta, setIndicePergunta] = useState(0);
-  const [respostas, setRespostas] = useState<string[]>([]);
-  const [finalizado, setFinalizado] = useState(todasAsPerguntas.slice(0, 10))
+  const [respostas, setRespostas] = useState<number[]>([]);
+  const [perguntas, setPerguntas] = useState(sortearPerguntas
+    ());
 
+  function sortearPerguntas() {
+    const perguntasEmbaralhadas = todasAsPerguntas.sort(() => Math.random() - 0.5).slice(0, 10)
+    return perguntasEmbaralhadas
+  }
   return {
-    get pergunta () {
-        return perguntas[indicePergunta]
+    get pergunta() {
+      return perguntas[indicePergunta];
+    },
+    get pontuacao() {
+      return perguntas.map(p => p.resposta)
+        .map((r, i) => r === respostas[i] ? 1 : 0).filter(Boolean).length;
+    },
+    get totalDePerguntas() {
+      return perguntas.length;
+    }
+    ,
+    get concluido() {
+      return indicePergunta === perguntas.length;
+    },
+    responder(resposta: number) {
+      setRespostas([...respostas, resposta]);
+      setIndicePergunta(indicePergunta + 1);
+    },
+    reiniciar() {
+      setIndicePergunta(0);
+      setRespostas([]);
+      setPerguntas(sortearPerguntas());
     }
   }
 }
 
-export default useQuestionario
+export default useQuestionario;
